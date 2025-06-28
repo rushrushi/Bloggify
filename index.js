@@ -18,7 +18,7 @@ const PORT = process.env.PORT
 
 app.use(express.static('public'));
 
-mongoose.connect('mongodb+srv://EOpG8xwEch5EyHag:EOpG8xwEch5EyHag@user-blogify.i5orahi.mongodb.net/?retryWrites=true&w=majority&appName=user-blogify').then((e) => console.log("MongoDB Connected"))
+mongoose.connect(`mongodb+srv://${process.env.username}:${process.env.password}@user-blogify.i5orahi.mongodb.net/?retryWrites=true&w=majority&appName=user-blogify`).then((e) => console.log("MongoDB Connected"))
 
 app.set('view engine', 'ejs')
 app.set('views', path.resolve('./views'))
