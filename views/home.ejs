@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+        <title>homepage</title>
+</head>
+
+<body style="color:aliceblue">
+    <%- include("./partials/nav") %>
+        <!-- <%= JSON.stringify(user) %> -->
+            <div class="blog" data-bs-theme="dark" style="display: flex;">
+                <% blog.forEach(blog => { %>
+                    <div class="card shadow bg-body-tertiary rounded" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= blog.title %>
+                            </h5>
+                            <a href="/blog/<%= blog._id %>" class="btn btn-light">
+                                View Blog
+                            </a>
+                        </div>                
+                    </div>
+                <% })%>
+            </div>
+            <%- include("./partials/script") %>
+</body>
+
+</html>

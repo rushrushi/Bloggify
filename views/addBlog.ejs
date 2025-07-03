@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+        <title>Blog Page</title>
+</head>
+
+<body>
+    <%- include("./partials/nav") %>
+
+    <div class="container mt-3" data-bs-theme="dark">
+        <form action="/blog/add-new" method="post">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" name="title" class="form-control" required id="title" aria-describedby="title" placeholder="What's the title!">
+            </div>
+            <div class="mb-3">
+                <label for="body" class="form-label">Body</label>
+                <textarea name="body" required id="body" class="form-control" rows="15" placeholder="Write Blog here!"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="/" class="btn btn-light">Back</a>
+        </form>
+    </div>
+
+    <%- include("./partials/script") %>
+</body>
+
+</html>

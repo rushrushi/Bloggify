@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+        <title>blog</title>
+</head>
+
+<body>
+    <%- include("./partials/nav") %>
+        <div class="card m-3" data-bs-theme="dark">
+
+
+            <div class="card-header">
+                <h1>
+                    <%= blog.title %>
+                </h1>
+            </div>
+            <div class="card-body" style="padding:1%;white-space: pre-wrap;word-wrap: break-word;font-family: inherit;">
+                        <%= blog.body %>
+            </div>
+            <div class="card-footer">
+                <div style="display:flex">
+                    <a href="/" class="btn btn-primary"
+                        style="display: inline; height: 30.6px; width:57.53px; padding:2px">Back</a>
+                    <% if(locals.user){%>
+                        <% if(JSON.stringify(user._id)===JSON.stringify(blog.createdBy)) {%>
+                            <form action="/blog/delete/<%= blog._id %>" method="POST"
+                                style="display: inline; margin-left: 15px;">
+                                <button class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Delete this blog?')">Delete</button>
+                            </form>
+                            <a href="/blog/edit/<%= blog._id %>" class="btn btn-primary btn-sm ms-3">Edit Blog</a>
+                            <% } %>
+                                <% } %>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="card m-3" data-bs-theme="dark">
+            <h4 class="card-header">
+                Comments
+            </h4>
+            <% if(locals.user){ %>
+
+                    <form class="m-3" data-bs-theme="dark" action="/blog/<%= blog._id %>" method="post">
+                        <input type="text" class="form-control mb-2" required placeholder="Add comment..." name="content" id="content">
+                        <button type="submit" class="btn btn-primary">Post</button>
+                    </form>
+                <% } else { %>
+                    <h6 class="m-3">
+                        Sign-in to comment...
+                    </h5>
+                <% } %>
+                    <% comment.forEach(comment=> { %>
+                        <div class="ms-3 me-3 pt-3 mb-2" data-bs-theme="dark" style="display: flex; border-top: 1px white solid">
+                            <img aria-expanded="false" src="/images/default_pp.png" alt="PP" style="width: 35px; height: 100%; border-radius: 50%; margin-top: 6px">
+                            <div>
+                                <p class="ms-3" style="font-size: small;">
+                                    <%= comment.userName %>
+                                </p>
+                                <h6 class="ms-3">
+                                    <%= comment.content %>
+                                </h6>
+                            </div>
+                            <div class="dlt me-3" style="position: absolute; right:0%">
+                                <a href="/blog/comment/delete/<%= comment._id %>" class="btn btn-danger h-100px">Delete</a>
+                            </div>
+                        </div>
+                    <%})%>
+                    <% if (comment.length == 0) { %>
+                     <div class="m-3 mt-1"  style="border-top: 1px white solid">
+                        <h6 class="text-gray-600 pt-4 text-center">
+                            No comments yet!
+                        </h6>
+                     </div>
+                    <% } %>
+        </div>
+
+        <%- include("./partials/script") %>
+</body>
+
+</html>
