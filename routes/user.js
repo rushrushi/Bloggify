@@ -20,7 +20,9 @@ router.post('/signin', async (req, res) => {
     try{
         const token = await User.matchPasswordAndGenerateToken(email, password)
 
-        res.cookie("token", token).redirect('/')
+        res.cookie("token", token, {
+            maxAge: 1000 * 60 * 60 * 24 * 7
+        }).redirect('/')
     } catch (error){
         res.render('signin', {
             error: "Incorrect Email or Password"

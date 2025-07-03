@@ -107,6 +107,7 @@ router.get('/comment/delete/:id', async (req, res) => {
     const  blogId = comment.blogId
     res.redirect(`/blog/${blogId}`)
 })
+
 router.get('/myblog/:id', async (req, res) => {
     const userId = req.params.id;
 
@@ -115,7 +116,7 @@ router.get('/myblog/:id', async (req, res) => {
     }
 
     const blogs = await Blog.find({ createdBy: userId });
-    const user = await User.find({userId});
+    const user = await User.findById(userId);
     res.render('myblogs', { blogs , user});
 });
 
