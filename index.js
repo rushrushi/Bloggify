@@ -14,7 +14,7 @@ const User = require('./models/user');
 
 
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8000
 
 app.use(express.static('public'));
 
