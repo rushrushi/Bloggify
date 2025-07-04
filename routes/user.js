@@ -1,6 +1,5 @@
 const {Router} = require('express')
 const User = require('../models/user')
-const Blog = require('../models/blog')
 const mongoose = require('mongoose')
 const { createTokenForUser } = require('../services/authentication');
 const router = Router()
@@ -36,15 +35,24 @@ router.get('/logout', (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-    const { fullName, email, password, profileImageURl } = req.body
-    await User.create(
-        {fullName,
-        email,
-        password
-    })
-    const token = createTokenForUser(User)
-    console.log("User created", token);
-    return res.cookie("token", token).redirect('/')
+    try{
+        const { fullName, email, password, profileImageURl } = req.body
+        await User.create(
+            {
+                fullName,
+                email,
+                password
+            })
+        const token = createTokenForUser(User)
+        return res.cookie("token", token, {
+            maxAge: 1000 * 60 * 60 * 24 * 7
+        }).redirect('/')
+    }
+    catch (error) {
+        res.render('signup', {
+            error: "Email already exists"
+        })
+    }
 })
 
 

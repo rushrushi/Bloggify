@@ -2,13 +2,131 @@
 <html lang="en">
 
 <head>
-    <%- include("./partials/head") %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="/images/favicon.png" alt="">
+    <style>
+        body {
+            background-color: rgb(29, 31, 32);
+            color: aliceblue;
+            box-sizing: border-box;
+            height: 100%;
+            overflow-y: scroll;
+            scrollbar-gutter: stable;
+        }
+    
+        .navbar {
+            color: aliceblue;
+            font-weight: 700;
+            font-family: serif;
+            position: sticky;
+            top: 0px;
+            z-index: 99;
+            width: 100%;
+        }
+    
+        .card {
+            margin: 10px;
+            width: 70%;
+        }
+
+        .cmt{
+            width: 80%;
+        }
+    
+        .card-title {
+            padding-bottom: 20px;
+            color: white
+        }
+    
+        .blog {
+            display: flex;
+            padding: 10px;
+        }
+    
+        .email:hover {
+            cursor: pointer;
+        }
+    
+        @media only screen and (max-width: 990px) {
+            .card {
+                width: 95%;
+            }
+            .cmt{
+                width: 65%;
+            }
+        }
+    </style>
         <title>blog</title>
 </head>
 
 <body>
-    <%- include("./partials/nav") %>
-        <div class="card m-3" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand me-2 pe-4 text-white border-end border-gray logo" href="/"
+                style="display: flex; align-items:center">
+                <img src="/images/favicon.png" width="40px" alt="Bloggify">
+                <h5 class="navbar" style="font-family: 'serif'; margin-left: 10px; margin-top: 8px">
+                    Bloggify
+                </h5>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active ps-4 me-2 text-white" href="/">Home</a>
+                    </li>
+                    <% if(locals.user){ %>
+    
+                        <li class="nav-item">
+                            <a class="nav-link active ps-4 text-white" href="/blog/add-new">Add Blog</a>
+                        </li>
+    
+                        <li class="nav-item">
+                            <a class="nav-link active ps-4 text-white" href="/blog/myblog/<%= user._id %>">My Blogs</a>
+                        </li>
+    
+                        <li class="nav-item" style="display: flex;" data-bs-toggle="dropdown">
+                            <img class="ms-4" href="#" role="button" aria-expanded="false" src="/images/default_pp.png"
+                                alt="PP" style="width: 35px; height: 35px; border-radius: 50%;" />
+    
+                            <h6 class="ms-3 text-white email nav-link">
+                                <%= user.email %>
+                            </h6>
+    
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active ms-4 text-white btn btn-danger" href="/user/logout"
+                                onclick="return confirm('Confirm Logout?')">Logout</a>
+                        </li>
+    
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link active ps-4 text-white" href="/user/signup">Create Account</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active ps-4 text-white" href="/user/signin">Sign-in</a>
+                            </li>
+                            <% } %>
+    
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <% if(locals.error){ %>
+        <div class="container mt-4">
+            <div class="alert alert-danger" role="alert">
+                <%= locals.error %>
+            </div>
+        </div>
+        <% } %>
+    
+        <div class="card m-3 mx-auto" data-bs-theme="dark">
 
 
             <div class="card-header">
@@ -38,7 +156,8 @@
             </div>
 
         </div>
-        <div class="card m-3" data-bs-theme="dark">
+
+        <div class="card m-3 mx-auto" data-bs-theme="dark">
             <h4 class="card-header">
                 Comments
             </h4>
@@ -54,13 +173,13 @@
                     </h5>
                 <% } %>
                     <% comment.forEach(comment=> { %>
-                        <div class="ms-3 me-3 pt-3 mb-2" data-bs-theme="dark" style="display: flex; border-top: 1px white solid">
+                        <div class="ms-3 me-3 pt-3 mb-2" data-bs-theme="dark" style="display: flex; border-top: 1px white solid;">
                             <img aria-expanded="false" src="/images/default_pp.png" alt="PP" style="width: 35px; height: 100%; border-radius: 50%; margin-top: 6px">
-                            <div>
-                                <p class="ms-3" style="font-size: small;">
+                            <div class="cmt">
+                                <p class="ms-3" style="font-size: small;overflow-x: wrap;">
                                     <%= comment.userName %>
                                 </p>
-                                <h6 class="ms-3">
+                                <h6 class="ms-3" style="overflow-x: wrap;">
                                     <%= comment.content %>
                                 </h6>
                             </div>

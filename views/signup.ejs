@@ -20,15 +20,34 @@
                 <input type="email" required name="email" class="form-control" id="email" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="position: relative;">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
                 <input type="password" required name="password" class="form-control" id="password">
+                <button type="button" style="position: absolute;z-index:99 ;top:50%; right:3%; background:transparent; border:none;" id="eye" onclick="eye1()">
+                    show
+                </button>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>   </form>
     </div>
     
     
     <%- include("./partials/script") %>
+    <script>
+        const password = document.querySelector('#password')
+        const eye = document.querySelector('#eye')
+        let pointer = 1
+        function eye1(){
+            pointer = !pointer
+            if(pointer){
+                eye.innerHTML = "hide"
+                password.type = "text"
+            }else{
+                eye.innerHTML = "show"
+                password.type = "password"
+            }
+        }
+
+    </script>
 </body>
 
 </html>

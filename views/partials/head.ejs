@@ -25,6 +25,8 @@
 
     .card {
         margin: 10px;
+        width: 20%;
+        height: 140px;
     }
 
     .card-title {
@@ -40,4 +42,17 @@
     .email:hover {
         cursor: pointer;
     }
+
+    @media only screen and (max-width: 990px) {
+        .card {
+            width: 43%;
+        }
+    }
+
+    @media only screen and (max-width: 250px) {
+        .card {
+            width: 100%;
+        }
+    }
+
 </style>
