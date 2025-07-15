@@ -27,22 +27,6 @@
 
 ---
 
-## 📁 Folder Structure
-
-Bloggify/
-├── middleware/
-├── models/
-├── node_modules/
-├── public/
-├── routes/
-├── services/
-├── views/
-├── .env
-├── index.js
-├── package.json
-└── README.md
-
-
 ## ⚙️ Installation & Setup
 
 1. **Clone the repository**
